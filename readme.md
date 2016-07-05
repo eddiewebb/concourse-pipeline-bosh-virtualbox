@@ -14,7 +14,8 @@ COncourse on Vagrant does not allow the invasion we need for proxy config and su
 
 
 
-## Setting up Bosh for concousr
+## Setting up Bosh for concourse
+See bin/bootstrapBoshLite.sh for latest
 ```
 # install vagrant
 # Grab bosh-lite (google)
@@ -33,7 +34,14 @@ bosh update cloud-config ../samples/bosh/cloud_cpi_virtualbox.yml
 #provide bosh release for concourse against our CPI
 bosh deployment ../samples/bosh/bosh_manifest.yml 
 
+
+bosh deploy 
 ```
+
+
+
+# UNverified WIP
+I am converting from concourse standalone to a bosh-lite deploy using vagrant and virtual box. Instructions below may not refelct that.
 
 
 ## Sample Pipelines
@@ -41,7 +49,7 @@ You can find pipelines in samples/pipelines folder
 
 ```
 #connect to local Concourse container, give it nickname "lite" to target in future tasks
-fly -t lite login -c http://192.168.100.4:8080   
+fly -t lite login -c http://10.0.2.11:8080   
 # configure a pipeline by providing a manifest
 fly -t lite set-pipeline -p hello-world -c samples/hello/hello.yml 
 y
