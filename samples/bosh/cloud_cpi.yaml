@@ -1,0 +1,44 @@
+azs:
+- name: z1
+  cloud_properties: {availability_zone: us-east-1a}
+- name: z2
+  cloud_properties: {availability_zone: us-east-1b}
+
+vm_types:
+- name: default
+  cloud_properties:
+    instance_type: t2.micro
+    ephemeral_disk: {size: 3000, type: gp2}
+- name: large
+  cloud_properties:
+    instance_type: m3.large
+    ephemeral_disk: {size: 30000, type: gp2}
+
+disk_types:
+- name: default
+  disk_size: 3000
+  cloud_properties: {type: gp2}
+- name: large
+  disk_size: 50_000
+  cloud_properties: {type: gp2}
+
+networks:
+- name: default
+  type: manual
+  subnets:
+  - range: 10.45.80.0/22
+    gateway: 10.45.80.1
+    az: z1
+    static:
+    - 10.45.80.11 - 10.45.80.20
+    dns: [147.179.128.75]
+    cloud_properties: {subnet: subnet-3879724f}
+- name: vip
+  type: vip
+
+compilation:
+  workers: 5
+  reuse_compilation_vms: true
+  az: z1
+  vm_type: large
+  network: default
