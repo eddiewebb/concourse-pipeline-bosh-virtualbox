@@ -10,15 +10,12 @@ Why use the effort to learn and configure bosh just to run concourse pipeline on
 Concourse standalone/binary install on Vagrant does not allow the invasion we need for proxy config and such.  So BOSH is the only route to get at the internal config needed.  For those in a corporate environment, slow internet, or other restrictions, a true IaaS may not be readily available, and VB provides means to learn and develop against concourse.
 
 
-## Folders
-Note: These folders may not exist until you run bin/bootstrap.sh. But keep readin before you do!
+## Prereqs
+1. You must have ruby installed (used to install bosh cli gem)
+2. You must have VirtualBox 5.x installed with VM extension pack
+3. You must have compatible vagrant installed.
 
-- `boshlite` 
-    the bosh-lite vagrant image to start a local machine in virtul box or remote in aws. See bosh-lite docs.
-- `samples`
-    sample manifests and files fro managing the bosh/conousre install
-- `releases`
-    tarballs and the like required to run bosh/concourse (you will need to download these from bosh.io)
+
 
 
 ## Configure Virtual Box
@@ -53,6 +50,7 @@ networks:
 ## Install & Configure bosh-lite
 Nothing special about this step, but requires lots of downloading.
 
+Best to use (bin/bootstrapBoshLite.sh)
 ```
 # install vagrant (google it)
 # Grab bosh-lite (google it)
@@ -75,8 +73,6 @@ bosh deployment ../samples/bosh/bosh_manifest.yml
 bosh deploy 
 ```
 
-See bin/bootstrapBoshLite.sh for latest example used by author
-
 
 ## Add route to local (your actual machine) route table
 This will expose our secondary subnet (vboxnet0) to browsers, fly cli, etc.
@@ -96,5 +92,16 @@ fly -t onbosh unpause-pipeline -p hello-world
 ```
 
 Your first plan should appear in the UI to start building. See https://concourse.ci/hello-world.html for full tutorial using concourse.
+
+
+## Folders
+Note: These folders may not exist until you run bin/bootstrap.sh. But keep readin before you do!
+
+- `boshlite` 
+    the bosh-lite vagrant image to start a local machine in virtul box or remote in aws. See bosh-lite docs.
+- `samples`
+    sample manifests and files fro managing the bosh/conousre install
+- `releases`
+    tarballs and the like required to run bosh/concourse (you will need to download these from bosh.io)
 
 
