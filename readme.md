@@ -83,6 +83,8 @@ sudo route add -net 192.168.100.0/24 192.168.50.4
 
 ## Hooray! You're done!
 
+##Extra Credit
+
 ### Use browser and fly cli to interacyt with concourse
 Create and apply settings to a target (i called it onbosh).  You should visit Concourse excellent tutorials to learn more, beyond the scope of this sample.
 ```
@@ -93,6 +95,8 @@ fly -t onbosh unpause-pipeline -p hello-world
 
 Your first plan should appear in the UI to start building. See [concourse ci tutorials](https://concourse.ci/hello-world.html) for full tutorial using concourse.
 
+### FlightSchool
+This is a great tutorial from the concourse team.  It uses a [pre-defined generic pipeline](/samples/pipelines/flightschool.yml) to run the [developer owned task definition](https://github.com/eddiewebb/flight-school/blob/master/build.yml) to execute on every commit!
 
 ## Folders
 Note: These folders may not exist until you run bin/bootstrap.sh. But keep readin before you do!
