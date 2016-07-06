@@ -19,15 +19,11 @@ networks:
 - name: private
   type: manual
   subnets:
-  - range: 10.0.2.0/24
-    gateway: 10.0.2.2
-    dns: [8.8.8.8]
-    static:
-    - 10.0.2.4
+  - range: 192.168.100.0/24
+    gateway: 192.168.100.1
     az: z1
     cloud_properties:
-      name: natnetwork         # Network Name from configuration dialog
-      type: natnetwork
+      name: vboxnet0
 
 disk_pools:
 - name: default

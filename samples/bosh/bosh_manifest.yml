@@ -24,7 +24,6 @@ instance_groups:
   azs: [z1]
   networks: 
   - name: private
-    static_ips: 10.0.2.4
   jobs:
   - name: atc
     release: concourse
