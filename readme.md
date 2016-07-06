@@ -96,7 +96,7 @@ fly -t onbosh unpause-pipeline -p hello-world
 Your first plan should appear in the UI to start building. See [concourse ci tutorials](https://concourse.ci/hello-world.html) for full tutorial using concourse.
 
 ### FlightSchool
-This is a great tutorial from the concourse team.  It uses a [pre-defined generic pipeline](/samples/pipelines/flightschool.yml) to run the [developer owned task definition](https://github.com/eddiewebb/flight-school/blob/master/build.yml) to execute on every commit!
+This is a [great tutorial](https://concourse.ci/flight-school.html) from the concourse team.  It uses a [pre-defined generic pipeline](/samples/pipelines/flightschool.yml) to run the [developer owned task definition](https://github.com/eddiewebb/flight-school/blob/master/build.yml) to execute on every commit!
 
 ## Folders
 Note: These folders may not exist until you run bin/bootstrap.sh. But keep readin before you do!
