@@ -30,7 +30,7 @@ instance_groups:
     release: concourse
     properties:
       # replace with your CI's externally reachable URL, e.g. https://ci.foo.com
-      external_url: http://192.168.100.11
+      external_url: http://192.168.100.11:8080
       
       # replace with username/password, or configure GitHub auth
       basic_auth_username: admin
@@ -61,7 +61,7 @@ instance_groups:
         password: password
 
 - name: worker
-  instances: 1
+  instances: 2
   # replace with a VM type from your BOSH Director's cloud config
   vm_type: default
   stemcell: trusty
@@ -70,7 +70,11 @@ instance_groups:
   jobs:
   - name: groundcrew
     release: concourse
-    properties: {}
+    properties:
+      http_proxy_url: http://www-proxy.com:80
+      https_proxy_url: http://www-proxy.com:80
+      no_proxy:
+      - localhost,192.168.1.0/16
   - name: baggageclaim
     release: concourse
     properties: {}
@@ -80,6 +84,9 @@ instance_groups:
       garden:
         listen_network: tcp
         listen_address: 0.0.0.0:7777
+        http_proxy: http://www-proxy.com:80
+        https_proxy: http://www-proxy.com:80
+        no_proxy: localhost,192.168.1.0/16
 
 update:
   canaries: 1

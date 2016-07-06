@@ -74,8 +74,10 @@ Create and apply settings to a target (i called it onbosh)
 ```
 fly -t onbosh login -c http://192.168.100.11:8080
 fly -t onbosh set-pipeline -p hello-world -c samples/pipelines/hello.yml 
+fly -t onbosh unpause-pipeline -p hello-world
+```
 
-
+YOur first plan should appear in the UI to start building. See https://concourse.ci/hello-world.html for full tutorial using concourse.
 
 
 

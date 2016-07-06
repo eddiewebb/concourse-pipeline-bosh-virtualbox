@@ -5,7 +5,7 @@ vm_types:
 - name: default
   cloud_properties:
     cpus: 2
-    memory: 1_0248
+    memory: 2_096
     ephemeral_disk: 4_096
     paravirtprovider: minimal
 - name: large
@@ -22,7 +22,7 @@ networks:
   - range: 192.168.100.0/24
     gateway: 192.168.100.1
     az: z1
-    static_ips:
+    static:
       192.168.100.11 #used for web config
     cloud_properties:
       name: vboxnet0
