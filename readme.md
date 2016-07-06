@@ -50,7 +50,7 @@ networks:
 ## Install & Configure bosh-lite
 Nothing special about this step, but requires lots of downloading.
 
-Best to use [bin/bootstrapBoshLite.sh]
+Best to use [bin/bootstrapBoshLite.sh](/bin/bootstrapBoshLite.sh)
 ```
 # install vagrant (google it)
 # Grab bosh-lite (google it)
@@ -91,7 +91,7 @@ fly -t onbosh set-pipeline -p hello-world -c samples/pipelines/hello.yml
 fly -t onbosh unpause-pipeline -p hello-world
 ```
 
-Your first plan should appear in the UI to start building. See [https://concourse.ci/hello-world.html] for full tutorial using concourse.
+Your first plan should appear in the UI to start building. See [concourse ci tutorials](https://concourse.ci/hello-world.html) for full tutorial using concourse.
 
 
 ## Folders
