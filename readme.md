@@ -3,6 +3,9 @@
 ## What
 This project provides the steps, configuration and samples to instantiate a the latest concourse pipeline release, managed by bosh-lite on your local machine using VirtualBox.
 
+Once complete you'll have the FlightSchool tutorial automatically building a ruby app on every commit, pulling down required docker images and code through a corporate proxy.
+![Flightschool Pipeline View](/assets/flightschool.png)
+
 
 ## Why
 Why use the effort to learn and configure bosh just to run concourse pipeline on virtual box?
