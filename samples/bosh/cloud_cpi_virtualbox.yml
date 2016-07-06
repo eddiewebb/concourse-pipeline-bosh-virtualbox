@@ -12,7 +12,7 @@ vm_types:
   cloud_properties:
     cpus: 2
     memory: 2_096
-    ephemeral_disk: 4_096
+    ephemeral_disk: 10_240
     paravirtprovider: minimal
 
 networks:
@@ -30,7 +30,7 @@ disk_pools:
   disk_size: 4_096
 
 compilation:
-  workers: 1
+  workers: 2
   az: z1
   reuse_compilation_vms: true
   vm_type: large

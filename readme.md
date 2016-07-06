@@ -43,6 +43,34 @@ bosh deploy
 # UNverified WIP
 I am converting from concourse standalone to a bosh-lite deploy using vagrant and virtual box. Instructions below may not refelct that.
 
+# Using Virtual Box with Host-Only Netwrk (no internet)
+## Determine unused subnet on virtual box
+at the time of this writing, the VirtualBox CPI for Bosh-lite create a network names vboxnet1 using IP 192.168.54.1.    You can not use that network for CPI config.  Make sure atleast one other network exists in Preferences > Networks > Host Only (tab).   Grab the IP from that edit dialog.
+
+```
+
+networks:
+- name: private
+  type: manual
+  subnets:
+  - range: 192.168.100.0/24
+    gateway: 192.168.100.1 # the IP from virtual box host-only network config. 
+   .
+    az: z1
+    cloud_properties:
+      name: vboxnet0  # remember, its NOT the one used by vb running bosh-lite
+```
+
+
+
+
+
+
+
+
+
+
+
 
 ## Sample Pipelines
 You can find pipelines in samples/pipelines folder
