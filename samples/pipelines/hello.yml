@@ -1,22 +1,5 @@
 jobs:
-- name: groundcrew
-  properties:
-    http_proxy_url: http://10.0.2.2:3128
-    https_proxy_url: http://10.0.2.2:3128
-    no_proxy:
-    - localhost
-- name: garden
-  properties:
-    garden:
-      http_proxy: http://10.0.2.2:3128
-      https_proxy: http://10.0.2.2:3128
-      no_proxy: localhost
 - name: hello-world
-  properties:
-    garden:
-      http_proxy: http://10.0.2.2:3128
-      https_proxy: http://10.0.2.2:3128
-      no_proxy: localhost
   plan:
   - task: get-mad
     config:
@@ -26,4 +9,4 @@ jobs:
         source: {repository: ubuntu}
       run:
         path: echo
-        args: ["Hello, world!"]
+        args: ["Bahumbug!"]

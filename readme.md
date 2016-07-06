@@ -62,8 +62,18 @@ networks:
 ```
 
 
+## Add route to local (your actual machine) route table
+This will expose our secondary subnet (vboxnet0) to browsers, etc.
+```
+sudo route add -net 192.168.100.11 192.168.50.4
+```
 
 
+## Use fly
+Create and apply settings to a target (i called it onbosh)
+```
+fly -t onbosh login -c http://192.168.100.11:8080
+fly -t onbosh set-pipeline -p hello-world -c samples/pipelines/hello.yml 
 
 
 
