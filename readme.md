@@ -1,17 +1,25 @@
 # Concourse Pipeline on BOSH Playground
 
+## What
+This project provides the steps, configuration and samples to instantiate a the latest concourse pipeline release, managed by bosh-lite on your local machine using VirtualBox.
+
+
+## Why
+Why use the effort to learn and configure bosh just to run concourse pipeline on virtual box?
+
+Concourse standalone/binary install on Vagrant does not allow the invasion we need for proxy config and such.  So BOSH is the only route to get at the internal config needed.  For those in a corporate environment, slow internet, or other restrictions, a true IaaS may not be readily available, and VB provides means to learn and develop against concourse.
+
+
 ## Folders
-- `boshlite`
+Note: These folders may not exist until you run bin/bootstrap.sh. But keep readin before you do!
+
+- `boshlite` 
     the bosh-lite vagrant image to start a local machine in virtul box or remote in aws. See bosh-lite docs.
 - `samples`
     sample manifests and files fro managing the bosh/conousre install
 - `releases`
     tarballs and the like required to run bosh/concourse (you will need to download these from bosh.io)
 
-## Why
-Why use the effort to learn and configure bosh just to run concourse pipeline on virtual box?
-
-Concourse standalone/binary install on Vagrant does not allow the invasion we need for proxy config and such.  So BOSH is the only route to get at the internal config needed.  For those in a corporate environment, slow internet, or other restrictions, a true IaaS may not be readily available, and VB provides means to learn and develop against concourse.
 
 ## Configure Virtual Box
 
