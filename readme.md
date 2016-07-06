@@ -1,26 +1,55 @@
 # Concourse CI Playground
 
 ## Folders
-- boshlite
-  the bosh-lite vagrant image to start a local machine in virtul box or remote in aws. See bosh-lite docs.
-- samples
-  sample manifests and files fro managing the bosh/conousre install
-- releases
-  tarballs and the like required to run bosh/concourse
+- `boshlite`
+    the bosh-lite vagrant image to start a local machine in virtul box or remote in aws. See bosh-lite docs.
+- `samples`
+    sample manifests and files fro managing the bosh/conousre install
+- `releases`
+    tarballs and the like required to run bosh/concourse (you will need to download these from bosh.io)
 
-## Starting
-COncourse on Vagrant does not allow the invasion we need for proxy config and such.  So BOSH is the only route.
+## Why
+Why use the effort to learn and configure bosh just to run on virtual box?
 
+Concourse on Vagrant does not allow the invasion we need for proxy config and such.  So BOSH is the only route.  For those in a corporate environment, slow internet, or other restrictions, a true IaaS may not be readily available, and VB provides means to learn and develop against concourse.
 
+## Configure Virtual Box
 
+### Install Virtual Box 5.x
+1. Google it.
+2. Install Oravle VM Extensions for same version of Virtual Box (available on VB downloads page)
 
-## Setting up Bosh for concourse
-See bin/bootstrapBoshLite.sh for latest
+### Create a network
+At the time of this writing, the VirtualBox CPI for Bosh-lite create a network names vboxnet1 using IP 192.168.54.1.    You can not use that network for CPI config.  Make sure atleast one other network exists, the IP range should not matter, but our manifest assumes .100.x range.
+
+1. Open VirtualBox
+2. Choose VirtualBox > Preferences > Network
+3. Create new network named `vboxnet0` .
+4. Suggested IP address: `192.168.100.1` 
+4. DHCP Server (tab) -> Uncheck Enable Server
+
+If you don';t use the suggested IP, update cloud_cpi_virtualbox.yml network section.
 ```
-# install vagrant
-# Grab bosh-lite (google)
+networks:
+- name: private
+  type: manual
+  subnets:
+  - range: 192.168.100.0/24 # the IP range applicable for virtual box host-only network config
+    gateway: 192.168.100.1 # the IP from virtual box host-only network config. 
+    az: z1
+    cloud_properties:
+      name: vboxnet0  # remember, must NOT be one used by vb running bosh-lite
+```
 
-#start BOSH-lite node in AWS
+
+## Install & Configure bosh-lite
+Nothing special about this step, but requires lots of downloading.
+
+```
+# install vagrant (google it)
+# Grab bosh-lite (google it)
+
+#start BOSH-lite node on virtual box
 vagrant up --provider=virtualbox
 #upload stemcell
 bosh upload stemcell ../releases/bosh-warden-boshlite-ubuntu-trusty-go_agent\?v\=3147 
@@ -38,83 +67,26 @@ bosh deployment ../samples/bosh/bosh_manifest.yml
 bosh deploy 
 ```
 
-
-
-# UNverified WIP
-I am converting from concourse standalone to a bosh-lite deploy using vagrant and virtual box. Instructions below may not refelct that.
-
-# Using Virtual Box with Host-Only Netwrk (no internet)
-## Determine unused subnet on virtual box
-at the time of this writing, the VirtualBox CPI for Bosh-lite create a network names vboxnet1 using IP 192.168.54.1.    You can not use that network for CPI config.  Make sure atleast one other network exists in Preferences > Networks > Host Only (tab).   Grab the IP from that edit dialog.
-
-```
-
-networks:
-- name: private
-  type: manual
-  subnets:
-  - range: 192.168.100.0/24
-    gateway: 192.168.100.1 # the IP from virtual box host-only network config. 
-   .
-    az: z1
-    cloud_properties:
-      name: vboxnet0  # remember, its NOT the one used by vb running bosh-lite
-```
+See bin/bootstrapBoshLite.sh for latest example used by author
 
 
 ## Add route to local (your actual machine) route table
-This will expose our secondary subnet (vboxnet0) to browsers, etc.
+This will expose our secondary subnet (vboxnet0) to browsers, fly cli, etc.
 ```
-sudo route add -net 192.168.100.11 192.168.50.4
+sudo route add -net 192.168.100.0/24 192.168.50.4
 ```
 
 
-## Use fly
-Create and apply settings to a target (i called it onbosh)
+## Hooray! You're done!
+
+### Use browser and fly cli to interacyt with concourse
+Create and apply settings to a target (i called it onbosh).  You should visit Concourse excellent tutorials to learn more, beyond the scope of this sample.
 ```
 fly -t onbosh login -c http://192.168.100.11:8080
 fly -t onbosh set-pipeline -p hello-world -c samples/pipelines/hello.yml 
 fly -t onbosh unpause-pipeline -p hello-world
 ```
 
-YOur first plan should appear in the UI to start building. See https://concourse.ci/hello-world.html for full tutorial using concourse.
+Your first plan should appear in the UI to start building. See https://concourse.ci/hello-world.html for full tutorial using concourse.
 
-
-
-
-
-
-## Sample Pipelines
-You can find pipelines in samples/pipelines folder
-
-```
-#connect to local Concourse container, give it nickname "lite" to target in future tasks
-fly -t lite login -c http://10.0.2.11:8080   
-# configure a pipeline by providing a manifest
-fly -t lite set-pipeline -p hello-world -c samples/hello/hello.yml 
-y
-# unpause pipeline
-fly -t lite unpause-pipeline -p hello-world
-# now play in the UI 
-```
-
-
-Watching/Hijacking
-You can watch a build, or hijack the container it runs in.
-```
-fly -t lite hijack --job hello-world/hello-world #steals the container, kills runnning job
-fly -t lite watch --job hello-world/hello-world #monitors running job
-```
-
-
-
-# getting docker to work on proxy
-set /etc/default/docker http://stackoverflow.com/questions/26679212/why-can-i-not-resolve-docker-io-and-other-hosts-behind-proxy-from-within-vagrant
-
-
-https://concourseci.slack.com/archives/general/p1465917989000287 
-"seem to have resolved it by also setting http_proxy properties on the garden job"
-
-
-https://concourseci.slack.com/archives/general/p1467131891003294
 
