@@ -1,4 +1,4 @@
-# Concourse CI Playground
+# Concourse Pipeline on BOSH Playground
 
 ## Folders
 - `boshlite`
@@ -9,9 +9,9 @@
     tarballs and the like required to run bosh/concourse (you will need to download these from bosh.io)
 
 ## Why
-Why use the effort to learn and configure bosh just to run on virtual box?
+Why use the effort to learn and configure bosh just to run concourse pipeline on virtual box?
 
-Concourse on Vagrant does not allow the invasion we need for proxy config and such.  So BOSH is the only route.  For those in a corporate environment, slow internet, or other restrictions, a true IaaS may not be readily available, and VB provides means to learn and develop against concourse.
+Concourse standalone/binary install on Vagrant does not allow the invasion we need for proxy config and such.  So BOSH is the only route to get at the internal config needed.  For those in a corporate environment, slow internet, or other restrictions, a true IaaS may not be readily available, and VB provides means to learn and develop against concourse.
 
 ## Configure Virtual Box
 
